@@ -19,9 +19,9 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }   
 
-        $this->app->singleton(RajaOngkir::class, function ($app) {
-            return new RajaOngkir(env('API_ONGKIR_KEY'));
-        });
+        // $this->app->singleton(RajaOngkir::class, function ($app) {
+        //     return new RajaOngkir(env('API_ONGKIR_KEY'));
+        // });
     }
 
     /**
