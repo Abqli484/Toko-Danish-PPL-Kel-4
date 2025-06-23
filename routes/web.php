@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/update-quantity/{id}', [CartController::class, 'update_quantity'])->name('cart.update-quantity');
 
     Route::get('/cart/payment', [PaymentController::class, 'index'])->name('cart.checkout');
-    Route::get('/historyorder', [PaymentController::class, 'processpayment'])->name('history.order');
+    // Route::get('/historyorder', [PaymentController::class, 'processpayment'])->name('history.order');
     Route::get('/summaryorder', [PaymentController::class, 'summaryorder'])->name('summary.order');
 
     Route::get('/add-address', [AddressController::class, 'index'])->name('add.new-address');
