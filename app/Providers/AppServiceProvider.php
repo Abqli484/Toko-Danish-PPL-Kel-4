@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if (env('APP_ENV') !== 'local') {
             URL::forceScheme('https');
-        }   
+        }       
 
         $this->app->singleton(RajaOngkir::class, function ($app) {
             return new RajaOngkir(env('API_ONGKIR_KEY'));
