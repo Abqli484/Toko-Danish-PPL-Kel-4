@@ -18,6 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
             
         ]);
+        
+        $middleware->validateCsrfTokens(except: [
+        ]);
 
     //     $middleware->trustProxies(at: [
     //     '0.0.0.0/0',
