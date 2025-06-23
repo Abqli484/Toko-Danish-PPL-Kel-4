@@ -35,5 +35,14 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('cart_count', Auth::user()->cart->total_item);
             }
         });
+
+        if (env('GOOGLE_CLOUD_KEY_BASE64')) {
+        $path = storage_path('app/google/laravel-gcs.json');
+
+        if (!file_exists($path)) {
+            \Illuminate\Support\Facades\File::ensureDirectoryExists(dirname($path));
+            file_put_contents($path, base64_decode(env('GOOGLE_CLOUD_KEY_BASE64')));
+        }
+    }
     }
 }
