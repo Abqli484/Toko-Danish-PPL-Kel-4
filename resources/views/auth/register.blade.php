@@ -2,6 +2,10 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        @if ($errors->has('csrf_token'))
+            <div class="error">{{ $errors->first('csrf_token') }}</div>
+        @endif
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
