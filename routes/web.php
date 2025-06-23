@@ -11,7 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\PaymentController;
 use App\Models\Category;
-// use Kavist\RajaOngkir\RajaOngkir;
+use Kavist\RajaOngkir\RajaOngkir;
 
 
 // Route::get('/', function () {
@@ -52,41 +52,41 @@ Route::middleware('auth')->group(function () {
     Route::get('/add-address', [AddressController::class, 'index'])->name('add.new-address');
     Route::post('/add-address', [AddressController::class, 'store'])->name('address.store');
 
-    // Route::get('/api/provinces', function (RajaOngkir $rajaOngkir) {
-    //     $daftarProvinsi = $rajaOngkir->provinsi()->all();
-    //     return response()->json($daftarProvinsi);
-    // });
+    Route::get('/api/provinces', function (RajaOngkir $rajaOngkir) {
+        $daftarProvinsi = $rajaOngkir->provinsi()->all();
+        return response()->json($daftarProvinsi);
+    });
 
-    // Route::get('/api/cities-by-province/{province_id}', function (RajaOngkir $rajaOngkir, $province_id) {
-    //     $daftarKota = $rajaOngkir->kota()->dariProvinsi($province_id)->get();
+    Route::get('/api/cities-by-province/{province_id}', function (RajaOngkir $rajaOngkir, $province_id) {
+        $daftarKota = $rajaOngkir->kota()->dariProvinsi($province_id)->get();
 
-    //     return response()->json($daftarKota);
-    // });
+        return response()->json($daftarKota);
+    });
 
-    // Route::get('/api/ongkos-kirim/{origin}/{destination}/{weight}/{courier}', function (RajaOngkir $rajaOngkir, $origin, $destination, $weight, $courier) {
-    //     $cost = $rajaOngkir->ongkosKirim([
-    //         'origin'        => $origin,     
-    //         'destination'   => $destination,      
-    //         'weight'        => $weight,    
-    //         'courier'       => $courier   
-    //     ])->get();
+    Route::get('/api/ongkos-kirim/{origin}/{destination}/{weight}/{courier}', function (RajaOngkir $rajaOngkir, $origin, $destination, $weight, $courier) {
+        $cost = $rajaOngkir->ongkosKirim([
+            'origin'        => $origin,     
+            'destination'   => $destination,      
+            'weight'        => $weight,    
+            'courier'       => $courier   
+        ])->get();
 
-    //     $nama_jasa = $cost[0]['name'];
+        $nama_jasa = $cost[0]['name'];
 
-    //     foreach ($cost[0]['costs'] as $row)
-    //     {
-    //         $daftarService[] = array(
-    //             'description' => $row['description'],
-    //             'biaya' => $row['cost'][0]['value'],
-    //             'etd' => $row['cost'][0]['etd']
-    //         );
-    //     }
+        foreach ($cost[0]['costs'] as $row)
+        {
+            $daftarService[] = array(
+                'description' => $row['description'],
+                'biaya' => $row['cost'][0]['value'],
+                'etd' => $row['cost'][0]['etd']
+            );
+        }
 
-    //     return response()->json([
-    //         'nama_jasa' => $nama_jasa,
-    //         'services' => $daftarService
-    //     ]);
-    // });
+        return response()->json([
+            'nama_jasa' => $nama_jasa,
+            'services' => $daftarService
+        ]);
+    });
 
     Route::get('/history-order', [OrderController::class, 'index'])->name('history.order');
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
